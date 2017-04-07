@@ -21,6 +21,7 @@ class BaseTableViewCell: UITableViewCell {
     
     override init(style:UITableViewCellStyle ,reuseIdentifier:String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         self.setUpUI()
     }
 
@@ -30,7 +31,7 @@ class BaseTableViewCell: UITableViewCell {
         imageLine.backgroundColor = UIColor.gray
         self.addSubview(imageLine)
         leftImageView = UIImageView.init(frame: CGRect.init(x: 10, y: 10, width: 100, height: 60))
-        leftImageView.image = UIImage.init(named: "default_banner_image")
+        leftImageView.backgroundColor = UIColor.red
         self.addSubview(leftImageView)
         
         titleLable = UILabel.init(frame: CGRect.init(x: leftImageView.frame.maxX, y: leftImageView.frame.minY, width: ScreenWidth - 10 - leftImageView.frame.maxX , height: 40))

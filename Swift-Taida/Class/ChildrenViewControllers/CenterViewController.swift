@@ -1,25 +1,19 @@
 //
-//  InfoMationViewController.swift
+//  CenterViewController.swift
 //  Swift-Taida
 //
-//  Created by 许菠菠 on 2017/4/4.
+//  Created by 许菠菠 on 2017/4/7.
 //  Copyright © 2017年 许菠菠. All rights reserved.
 //
 
 import UIKit
 
-class InfoMationViewController: BaseViewController {
+class CenterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "我的"
-        let leftViewController = LeftViewController()
-        let centerViewController = CenterViewController()
-        let rightViewController = RightViewController()
-        
-        let switchView = SwitchViewController.init(frame:CGRect.init(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64 - 50))
-        switchView.setUI(buttonArr: ["向左","居中","向右"], views: [leftViewController.view,centerViewController.view,rightViewController.view])
-        self.view.addSubview(switchView)
+        self.view.backgroundColor = UIColor.green
+
         // Do any additional setup after loading the view.
     }
 

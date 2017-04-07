@@ -8,60 +8,102 @@
 
 import UIKit
 
-class HeaderView: UIView,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+class HeaderView: UIView,UIScrollViewDelegate{
 
-    var scrollerView  = UICollectionView()
+    var myScrollerView = UIScrollView()
+    var leftImageView = UIImageView()
+    var centerImageView = UIImageView()
+    var rightImageView = UIImageView()
+    var currentImageIndex = 0;
+    var imageArray = [AnyObject]()
+    var imageViews = [UIImageView]()
+   
     
+    private var titleArr = [String]()
+    var timer = Timer()
     override init(frame:CGRect){
         super.init(frame:frame)
-        let layout = UICollectionViewFlowLayout()
-        scrollerView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: frame.width, height: frame.height), collectionViewLayout: layout)
-        //注册一个cell
-//        scrollerView! .registerClass(Home_Cell.self, forCellWithReuseIdentifier:"cell")
-//        //注册一个headView
-//        scrollerView! .registerClass(Home_HeadView.self, forSupplementaryViewOfKind:UICollectionElementKindSectionHeader, withReuseIdentifier: "headView")
-        scrollerView.delegate = self;
-        scrollerView.dataSource = self;
         
-        scrollerView.backgroundColor = UIColor.white
-        //设置每一个cell的宽高
-        layout.itemSize = CGSize.init(width: frame.width, height: frame.height)
-        self.addSubview(scrollerView)
     }
-    // #MARK: --UICollectionViewDataSource的代理方法
-    /**
-     - 该方法是可选方法，默认为1
-     - returns: CollectionView中section的个数
-     */
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    /**
-     - returns: Section中Item的个数
-     */
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    /**
-     - returns: 绘制collectionView的cell
-     */
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath)
-        
-        return cell  
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("123")
-    }
+    func userInterFace() {
+        myScrollerView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: frame.width, height: frame.height))
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
-        return UIEdgeInsetsMake(5, 10, 5, 10)
+        myScrollerView.contentOffset = CGPoint.init(x: myScrollerView.frame.width, y: 0)
+        myScrollerView.contentSize = CGSize.init(width: frame.width * 3, height: frame.height)
+        myScrollerView.isPagingEnabled = true
+        myScrollerView.showsHorizontalScrollIndicator = false
+        myScrollerView.delegate = self
+        self.addSubview(myScrollerView)
+        for i in 0...3 {
+            let imageView = UIImageView.init(frame: CGRect.init(x:CGFloat(i) * myScrollerView.frame.width, y: 0, width: myScrollerView.frame.width, height: myScrollerView.frame.height))
+            let label = UILabel.init(frame: CGRect.init(x: 0, y: imageView.frame.height - 20, width: imageView.frame.width, height: 20))
+            label.textColor = UIColor.white
+            imageView.addSubview(label)
+            if i == 0 && imageArray.count > 1 {
+                imageView.backgroundColor = imageArray[imageArray.count - 1] as? UIColor //左边
+                label.text = titleArr[titleArr.count - 1]
+
+            }
+            if i == 1 && imageArray.count > 0 {
+                imageView.backgroundColor = imageArray[0] as? UIColor //左边
+                label.text = titleArr[0]
+
+            }
+            if i == 2 && imageArray.count > 1 {
+                imageView.backgroundColor = imageArray[1] as? UIColor//右边
+                label.text = titleArr[1]
+
+            }
+            imageViews.append(imageView)
+            myScrollerView.addSubview(imageView)
+        }
+
     }
     
-    func setUpUI(array imageArray:Array<String>) {
-        print(imageArray)
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        //启动定时器
+        timer.fireDate = NSDate.distantFuture
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        var leftImageIndex = 0
+        var rightImageIndex = 0
+        let offset = scrollView.contentOffset
+        if offset.x > frame.width {
+            //向右
+            currentImageIndex = (currentImageIndex + 1) % imageArray.count
+        }else if offset.x < frame.width {
+            currentImageIndex = (currentImageIndex + imageArray.count - 1 ) % imageArray.count
+        }
+        //  重新设置左右图片
+        let  centerImageView = imageViews[1]
+        let centerLable = centerImageView.subviews.first as? UILabel
+        let  leftImageView = imageViews[0]
+        let leftLable = leftImageView.subviews.first as? UILabel
+
+        let  rightImageView = imageViews[2]
+        let rightLabel = rightImageView.subviews.first as? UILabel
+        
+        centerImageView.backgroundColor = imageArray[currentImageIndex] as? UIColor;
+        centerLable?.text = titleArr[currentImageIndex]
+        
+        leftImageIndex  = (currentImageIndex + imageArray.count - 1) % imageArray.count ;
+        rightImageIndex = (currentImageIndex + 1) % imageArray.count ;
+        
+        leftImageView.backgroundColor  = imageArray[leftImageIndex] as? UIColor ;
+        leftLable?.text = titleArr[leftImageIndex]
+        
+        rightImageView.backgroundColor = imageArray[rightImageIndex] as? UIColor ;
+        rightLabel?.text = titleArr[rightImageIndex]
+        
+        scrollView .setContentOffset(CGPoint.init(x: scrollView.frame.width, y: 0), animated: false)
+        
+    }
+    func setUpUI(array imageArr:Array<AnyObject> ,titleArray titleOutArray:Array<String>) {
+        imageArray = imageArr
+        titleArr = titleOutArray
+        self.userInterFace()
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

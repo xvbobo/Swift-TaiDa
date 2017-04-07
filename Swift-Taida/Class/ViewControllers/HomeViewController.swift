@@ -24,8 +24,9 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
         self.view.addSubview(tabelView)
         
         if headerView == nil {
-            headerView = HeaderView.init(frame: CGRect.init(x: 0, y: 0, width: ScreenWidth, height: 100))
-            headerView?.setUpUI(array: ["123","345","678"]) 
+           
+            headerView = HeaderView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen_W, height: 150))
+            headerView?.setUpUI(array: [UIColor.red,UIColor.yellow,UIColor.green], titleArray: ["红色","黄色","绿色"])
         }
         self.tabelView.tableHeaderView = headerView
 //        let calerdarView = CalendarView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.width))
@@ -38,7 +39,7 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 40
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
