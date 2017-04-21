@@ -14,12 +14,8 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getData()
         // Do any additional setup after loading the view.
                
-    }
-    func getData() {
-   
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

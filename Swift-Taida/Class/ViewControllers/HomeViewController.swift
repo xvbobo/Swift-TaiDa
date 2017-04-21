@@ -12,12 +12,12 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
 
     var tabelView = UITableView()
     var headerView : HeaderView?
-    
+    var homeApi = HomeApi()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.title = "首页"
-        tabelView = UITableView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen_W, height: UIScreen_H), style: .plain)
+        tabelView = UITableView.init(frame: CGRect.init(x: 0, y:0, width: UIScreen_W, height: UIScreen_H), style: .plain)
         tabelView.separatorStyle = .none
         tabelView.delegate = self
         tabelView.dataSource = self
@@ -29,15 +29,14 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
             headerView?.setUpUI(array: [UIColor.red,UIColor.yellow,UIColor.green], titleArray: ["红色","黄色","绿色"])
         }
         self.tabelView.tableHeaderView = headerView
-//        let calerdarView = CalendarView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.width))
-//        calerdarView.backgroundColor = UIColor.white
-//        calerdarView.center = self.view.center
-//        self.view.addSubview(calerdarView)
         
         // Do any additional setup after loading the view.
     }
-    
-    
+   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        homeApi.getHomeData()
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 40
     }
@@ -54,6 +53,11 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
         
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController()
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

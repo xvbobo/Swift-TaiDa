@@ -13,13 +13,11 @@ class InfoMationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的"
-        let leftViewController = LeftViewController()
-        let centerViewController = CenterViewController()
-        let rightViewController = RightViewController()
+        let loginView = LoginView.init(frame: CGRect.init(x: 0, y: 64, width: ScreenWidth, height: 200))
+        self.view.addSubview(loginView)
         
-        let switchView = SwitchViewController.init(frame:CGRect.init(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64 - 50))
-        switchView.setUI(buttonArr: ["向左","居中","向右"], views: [leftViewController.view,centerViewController.view,rightViewController.view])
-        self.view.addSubview(switchView)
+        let animationView = AnimationView.init(frame: CGRect.init(x: 0, y: loginView.frame.maxY, width: ScreenWidth, height: self.view.frame.height - loginView.frame.height))
+        self.view.addSubview(animationView)
         // Do any additional setup after loading the view.
     }
 
