@@ -27,13 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
         
                 //创建TabBar控制器
-        let tab = BaseTabBarController()
-        tab.tabBar.barTintColor = UIColor.white
+        let rootView = SwipViewController()
 
         
         //设置根视图
         
-        self.window!.rootViewController=tab;
+        self.window!.rootViewController=rootView;
+    
         
         
         

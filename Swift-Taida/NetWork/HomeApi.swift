@@ -11,31 +11,55 @@ import Alamofire
 import HandyJSON
 
 
-
 class HomeApi: NSObject {
     var manger = URLManger()
     let homoModel = HomeModel()
-    var homeArray = Array<Any>()
-    let addCloser:() ->(Any) = {
-        return
-    }
-    var closer:((Any) -> ())?
-    override init() {
-    super.init()
-   }
+    var homeArray = [HomeModel]()
     
-    public func getHomeData() -> Array<Any>{
-        weak var weakself = self
+    let calAdd:(Int,Int) -> (Int) = {
+        a,b in
+        return a + b
+    }
+    
+    override init() {
+        
+        super.init()
+   }
+    func clickBtn()  {
+    }
+    public func getHomeData(finished:@escaping (_ responseArray:[HomeModel],_ matchModel:MatchModel,_ success:String?)->()){
 
         Alamofire.request(manger.requestURLGenerateWithURL(path: manger.kURLStringFirstPage),method:.get).responseJSON { (response) in
-//            let dict1 = response.result.value as! NSDictionary
-//            let model = JSONDeserializer<HomeModel>.deserializeFrom(dict: dict1.object(forKey: "league") as! NSDictionary?)
-//            if self.closer != nil {
-//                self.closer!(model ?? default value)
-//            }
-            weakself?.homeArray.append(self.homoModel);
+            if response.result.isSuccess {
+                var newsModelArray = [HomeModel]();
+                let dict = response.result.value as! NSDictionary
+//                print(dict)
+                let leagueDict = dict["league"] as! NSDictionary//赛事
+                let news = dict["news"] as! NSDictionary//新闻
+                let newsList = news["list"] as! NSArray//新闻数组
+                
+                let matchModel = JSONDeserializer<MatchModel>.deserializeFrom(dict: leagueDict)
+                for newsDict in newsList {
+                    let newsModel = JSONDeserializer<HomeModel>.deserializeFrom(dict: newsDict as? NSDictionary)
+                    if (newsModel != nil) {
+                        newsModelArray.append(newsModel!)
+                    }
+
+                }
+                finished(newsModelArray,matchModel!,"成功")
+                
+            }else {
+                finished([],MatchModel(),"失败")
+            }
+            
+        
         }
-        return homeArray;
+        
+    }
+    func captureValue(sums amount:Int) -> Int {
+        var a = 0
+        a += amount
+        return a
         
     }
 

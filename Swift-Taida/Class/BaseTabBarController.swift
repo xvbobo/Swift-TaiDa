@@ -12,6 +12,8 @@ class BaseTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBar.barTintColor = UIColor.white
+
         let home = HomeViewController()
         home.tabBarItem.title = "首页"
         home.tabBarItem.selectedImage = UIImage.init(named: "item_home_selected")
@@ -34,9 +36,7 @@ class BaseTabBarController: UITabBarController {
         
         
         let nvc1 = MyNavViewController(rootViewController:home);
-        
         let nvc2 = MyNavViewController(rootViewController:session);
-        
         let nvc3 = MyNavViewController(rootViewController:infoMation);
 
         self.viewControllers = [nvc1,nvc3,nvc2]

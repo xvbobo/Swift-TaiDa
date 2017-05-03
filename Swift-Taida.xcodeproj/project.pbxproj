@@ -11,17 +11,21 @@
 		9A0701A21EA5F6FC000375A9 /* Dog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A0701A01EA5F6FC000375A9 /* Dog.xcdatamodeld */; };
 		9A0701A81EA5FBAD000375A9 /* CoreDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0701A71EA5FBAD000375A9 /* CoreDataManger.swift */; };
 		9A0701AA1EA5FC23000375A9 /* CoreDataHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0701A91EA5FC22000375A9 /* CoreDataHelp.swift */; };
+		9A0BCA3E1EB1D27200ACECC7 /* MatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BCA3D1EB1D27200ACECC7 /* MatchModel.swift */; };
 		9A10F8511E9B2D5A00F69777 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A10F8501E9B2D5A00F69777 /* LoginView.swift */; };
 		9A10F8531E9B651400F69777 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A10F8521E9B651400F69777 /* AnimationView.swift */; };
 		9A10F8551E9B74BD00F69777 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A10F8541E9B74BD00F69777 /* DetailViewController.swift */; };
+		9A162EE71EAF44A9002FE2DA /* SwipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A162EE61EAF44A9002FE2DA /* SwipViewController.swift */; };
 		9A17243C1E1264D000B3766E /* MyNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17243B1E1264D000B3766E /* MyNavViewController.swift */; };
 		9A1724401E1275B200B3766E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A17243F1E1275B200B3766E /* BaseModel.swift */; };
 		9A1724421E12790700B3766E /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1724411E12790700B3766E /* HomeModel.swift */; };
 		9A21C3111E939E8B00C4C3E6 /* InfoMationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21C3101E939E8B00C4C3E6 /* InfoMationViewController.swift */; };
 		9A21C3131E939F4700C4C3E6 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21C3121E939F4700C4C3E6 /* BaseTabBarController.swift */; };
-		9A21C3151E93A28500C4C3E6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21C3141E93A28500C4C3E6 /* HeaderView.swift */; };
+		9A21C3151E93A28500C4C3E6 /* MyCustomScrollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21C3141E93A28500C4C3E6 /* MyCustomScrollerView.swift */; };
 		9A21C3191E93B2DD00C4C3E6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21C3181E93B2DD00C4C3E6 /* BaseTableViewCell.swift */; };
 		9A21C31B1E93BACA00C4C3E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A21C31A1E93BACA00C4C3E6 /* Assets.xcassets */; };
+		9A4CF57E1EB0333D00ECBDFE /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF57D1EB0333D00ECBDFE /* SideViewController.swift */; };
+		9A4CF5801EB04AF300ECBDFE /* MatchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF57F1EB04AF300ECBDFE /* MatchHeaderView.swift */; };
 		9A86649E1EA8A4D800D618BB /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A86649D1EA8A4D800D618BB /* BaseTableViewController.swift */; };
 		9A8664A01EA8B89100D618BB /* MyRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A86649F1EA8B89100D618BB /* MyRefreshView.swift */; };
 		9AAC36F51E9770BF00867F2A /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC36F41E9770BF00867F2A /* LeftViewController.swift */; };
@@ -43,17 +47,21 @@
 		9A0701A11EA5F6FC000375A9 /* Dog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dog.xcdatamodel; sourceTree = "<group>"; };
 		9A0701A71EA5FBAD000375A9 /* CoreDataManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManger.swift; sourceTree = "<group>"; };
 		9A0701A91EA5FC22000375A9 /* CoreDataHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelp.swift; sourceTree = "<group>"; };
+		9A0BCA3D1EB1D27200ACECC7 /* MatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchModel.swift; sourceTree = "<group>"; };
 		9A10F8501E9B2D5A00F69777 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9A10F8521E9B651400F69777 /* AnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		9A10F8541E9B74BD00F69777 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		9A162EE61EAF44A9002FE2DA /* SwipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipViewController.swift; sourceTree = "<group>"; };
 		9A17243B1E1264D000B3766E /* MyNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNavViewController.swift; sourceTree = "<group>"; };
 		9A17243F1E1275B200B3766E /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		9A1724411E12790700B3766E /* HomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		9A21C3101E939E8B00C4C3E6 /* InfoMationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoMationViewController.swift; sourceTree = "<group>"; };
 		9A21C3121E939F4700C4C3E6 /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
-		9A21C3141E93A28500C4C3E6 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		9A21C3141E93A28500C4C3E6 /* MyCustomScrollerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCustomScrollerView.swift; sourceTree = "<group>"; };
 		9A21C3181E93B2DD00C4C3E6 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		9A21C31A1E93BACA00C4C3E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9A4CF57D1EB0333D00ECBDFE /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
+		9A4CF57F1EB04AF300ECBDFE /* MatchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchHeaderView.swift; sourceTree = "<group>"; };
 		9A86649D1EA8A4D800D618BB /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		9A86649F1EA8B89100D618BB /* MyRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRefreshView.swift; sourceTree = "<group>"; };
 		9AAC36F41E9770BF00867F2A /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
@@ -105,11 +113,12 @@
 		9A552CBC1E2DF59C0011570A /* UIView */ = {
 			isa = PBXGroup;
 			children = (
-				9A21C3141E93A28500C4C3E6 /* HeaderView.swift */,
+				9A21C3141E93A28500C4C3E6 /* MyCustomScrollerView.swift */,
 				9A21C3181E93B2DD00C4C3E6 /* BaseTableViewCell.swift */,
 				9A10F8501E9B2D5A00F69777 /* LoginView.swift */,
 				9A10F8521E9B651400F69777 /* AnimationView.swift */,
 				9A86649F1EA8B89100D618BB /* MyRefreshView.swift */,
+				9A4CF57F1EB04AF300ECBDFE /* MatchHeaderView.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -132,6 +141,7 @@
 				9AB7854B1E10F7B700623CDA /* HomeApi.swift */,
 				9A17243F1E1275B200B3766E /* BaseModel.swift */,
 				9A1724411E12790700B3766E /* HomeModel.swift */,
+				9A0BCA3D1EB1D27200ACECC7 /* MatchModel.swift */,
 				9A0701A91EA5FC22000375A9 /* CoreDataHelp.swift */,
 			);
 			path = NetWork;
@@ -146,6 +156,8 @@
 				9A17243B1E1264D000B3766E /* MyNavViewController.swift */,
 				9A21C3121E939F4700C4C3E6 /* BaseTabBarController.swift */,
 				9A86649D1EA8A4D800D618BB /* BaseTableViewController.swift */,
+				9A162EE61EAF44A9002FE2DA /* SwipViewController.swift */,
+				9A4CF57D1EB0333D00ECBDFE /* SideViewController.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -321,19 +333,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A0701A81EA5FBAD000375A9 /* CoreDataManger.swift in Sources */,
+				9A0BCA3E1EB1D27200ACECC7 /* MatchModel.swift in Sources */,
 				9A21C3131E939F4700C4C3E6 /* BaseTabBarController.swift in Sources */,
 				9AB7854F1E1100B000623CDA /* BaseViewController.swift in Sources */,
 				9A17243C1E1264D000B3766E /* MyNavViewController.swift in Sources */,
 				9A1724421E12790700B3766E /* HomeModel.swift in Sources */,
 				9AFF517E1E0BB59100D6D285 /* AppDelegate.swift in Sources */,
 				9A0701A21EA5F6FC000375A9 /* Dog.xcdatamodeld in Sources */,
+				9A162EE71EAF44A9002FE2DA /* SwipViewController.swift in Sources */,
 				9A0701AA1EA5FC23000375A9 /* CoreDataHelp.swift in Sources */,
+				9A4CF57E1EB0333D00ECBDFE /* SideViewController.swift in Sources */,
 				9AB785491E10F44400623CDA /* URLManger.swift in Sources */,
+				9A4CF5801EB04AF300ECBDFE /* MatchHeaderView.swift in Sources */,
 				9A10F8511E9B2D5A00F69777 /* LoginView.swift in Sources */,
 				9AAC36F91E9770D800867F2A /* RightViewController.swift in Sources */,
 				9AAC36F71E9770CD00867F2A /* CenterViewController.swift in Sources */,
 				9AB7854C1E10F7B700623CDA /* HomeApi.swift in Sources */,
-				9A21C3151E93A28500C4C3E6 /* HeaderView.swift in Sources */,
+				9A21C3151E93A28500C4C3E6 /* MyCustomScrollerView.swift in Sources */,
 				9A10F8551E9B74BD00F69777 /* DetailViewController.swift in Sources */,
 				9A10F8531E9B651400F69777 /* AnimationView.swift in Sources */,
 				9A21C3191E93B2DD00C4C3E6 /* BaseTableViewCell.swift in Sources */,

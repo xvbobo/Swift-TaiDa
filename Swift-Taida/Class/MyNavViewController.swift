@@ -12,11 +12,20 @@ class MyNavViewController: UINavigationController {
 
     let UIScreen_W = UIScreen.main.bounds.width
     let UIScreen_H = UIScreen.main.bounds.height
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.barTintColor = UIColor.white
         self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.black]
                // Do any additional setup after loading the view.
+    }
+    func leftButton(imageString:String)  {
+        let barButton = UIBarButtonItem.init(image: UIImage.init(named: imageString), style: .plain, target: self, action: #selector(self.leftAction))
+        self.navigationItem.leftBarButtonItem = barButton
+    }
+    
+    func leftAction() {
+       print("左边点击")
     }
     func titleView () -> UIView {
         let label  = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen_W/2, height: 30))

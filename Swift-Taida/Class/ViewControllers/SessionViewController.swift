@@ -57,9 +57,12 @@ class SessionViewController: BaseViewController,UIPageViewControllerDelegate,UIP
         pageController .setViewControllers([viewControllers[1]], direction: .forward, animated: false, completion: nil)
         pageController.delegate = self
         pageController.dataSource = self
+        pageController.view.isUserInteractionEnabled = false
         self.view.addSubview(pageController.view)
         self.addChildViewController(pageController)
+        self.leftButton(imageString: "侧边栏")
     }
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if viewController.view.tag == 100 {
             return nil

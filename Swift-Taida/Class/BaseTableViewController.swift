@@ -11,10 +11,15 @@ import UIKit
 class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
     
 
-    var dataSource  = [String]()
-    
+    var dataSource  = [Any]()
+    var down = false
+    var hiddenRefresh = false
     var tabelView = UITableView()
-    var headerView : HeaderView?
+    var refreshView = MyRefreshView()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshView.isHidden = hiddenRefresh
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -25,16 +30,15 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
         tabelView.dataSource = self
         self.view.addSubview(tabelView)
         
-        if headerView == nil {
-            
-            headerView = HeaderView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen_W, height: 150))
-            headerView?.setUpUI(array: [UIColor.red,UIColor.yellow,UIColor.green], titleArray: ["红色","黄色","绿色"])
-        }
-        self.tabelView.tableHeaderView = headerView
         
+        setRefreshView()
         // Do any additional setup after loading the view.
     }
-    
+    func setRefreshView() {
+        refreshView = MyRefreshView.init(frame: CGRect.init(x: 0, y: -40, width: ScreenWidth, height: 40))
+        refreshView.backgroundColor = UIColor.yellow
+        self.view.addSubview(refreshView)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
@@ -50,7 +54,38 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
         return cell!
         
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if hiddenRefresh == true {
+            return
+        }
+        if scrollView.contentOffset.y > 0 {
+            down = true
+        }else{
+            down = false
+        }
+        if scrollView.contentOffset.y < -64 {
+            if scrollView.contentOffset.y + scrollView.frame.size.height < scrollView.contentSize.height{
+                refreshView.frame = CGRect.init(x: 0, y: 64, width: ScreenWidth, height: 40)
+                tabelView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);
+            }else{
+                tabelView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            }
+
+        }
+    }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if hiddenRefresh == true {
+            return
+        }
+        if down == true {
+            return
+        }
+        self.refreshView.frame = CGRect.init(x: 0, y: -40, width: ScreenWidth, height: 40)
+        scrollView.contentInset = UIEdgeInsetsMake(64, 0.0, 0.0, 0.0)
+        
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

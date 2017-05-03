@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HeaderView: UIView,UIScrollViewDelegate{
+class MyCustomScrollerView: UIView,UIScrollViewDelegate{
 
     var myScrollerView = UIScrollView()
     var leftImageView = UIImageView()

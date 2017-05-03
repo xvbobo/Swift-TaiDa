@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class LeftViewController: UIViewController,UITextFieldDelegate{
     
     var coreData = CoreDataHelp()
@@ -15,7 +14,8 @@ class LeftViewController: UIViewController,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         createUI()
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = UIColor.orange
+        
     }
     
     
