@@ -17,8 +17,6 @@ class HomeViewController: BaseTableViewController {
         super.viewDidLoad()
         getDataSource()
         createUI()
-        
-        
         // Do any additional setup after loading the view.
     }
     
@@ -26,7 +24,8 @@ class HomeViewController: BaseTableViewController {
         let homeApi = HomeApi()
        homeApi.getHomeData { (newsList, matchModel, error) in
         self.dataSource = newsList
-        self.tabelView.reloadData()
+        self.myTabelView.reloadData()
+        
     }
     }
     
@@ -39,20 +38,27 @@ class HomeViewController: BaseTableViewController {
             scrollerView?.setUpUI(array: [UIColor.red,UIColor.yellow,UIColor.green], titleArray: ["红色","黄色","绿色"])
         }
         heaerView = MatchHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen_W, height: 150))
-        self.tabelView.tableHeaderView = heaerView
+        self.myTabelView.tableHeaderView = heaerView
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 80
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count + 1
+        return self.dataSource.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "resueIdentifier")
+        var cell:BaseTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "cell") as? BaseTableViewCell
+        
         if cell == nil {
-            cell = BaseTableViewCell.init(style: .default, reuseIdentifier: "resueIdentifier")
+            
+            cell=BaseTableViewCell(style: .default, reuseIdentifier: "cell")
         }
-        return cell!
+        if self.dataSource.count > 0 {
+            let model = self.dataSource[indexPath.row]
+            cell.updateUI(model: model as! HomeModel)
+        }
+       
+        return cell as UITableViewCell
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

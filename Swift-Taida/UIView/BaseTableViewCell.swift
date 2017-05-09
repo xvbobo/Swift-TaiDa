@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class BaseTableViewCell: UITableViewCell {
 
@@ -31,7 +32,7 @@ class BaseTableViewCell: UITableViewCell {
         imageLine.backgroundColor = UIColor.gray
         self.addSubview(imageLine)
         leftImageView = UIImageView.init(frame: CGRect.init(x: 10, y: 10, width: 100, height: 60))
-        leftImageView.backgroundColor = UIColor.red
+        leftImageView.image = UIImage.init(named: "header")
         self.addSubview(leftImageView)
         
         titleLable = UILabel.init(frame: CGRect.init(x: leftImageView.frame.maxX, y: leftImageView.frame.minY, width: ScreenWidth - 10 - leftImageView.frame.maxX , height: 40))
@@ -41,6 +42,12 @@ class BaseTableViewCell: UITableViewCell {
         titleLable.text = "今天天气不错，适合出去游玩，你们准备好了吗？"
         self.addSubview(titleLable)
         
+    }
+    
+    func updateUI(model:HomeModel) {
+        titleLable.text = model.title
+        let urlImage = URL.init(string: model.logo!)
+        leftImageView.af_setImage(withURL: urlImage!)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

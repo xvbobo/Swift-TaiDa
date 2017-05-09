@@ -14,7 +14,7 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
     var dataSource  = [Any]()
     var down = false
     var hiddenRefresh = false
-    var tabelView = UITableView()
+    var myTabelView = UITableView()
     var refreshView = MyRefreshView()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -24,11 +24,11 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.title = "首页"
-        tabelView = UITableView.init(frame: CGRect.init(x: 0, y:0, width: UIScreen_W, height: UIScreen_H), style: .plain)
-        tabelView.separatorStyle = .none
-        tabelView.delegate = self
-        tabelView.dataSource = self
-        self.view.addSubview(tabelView)
+        myTabelView = UITableView.init(frame: CGRect.init(x: 0, y:0, width: UIScreen_W, height: UIScreen_H), style: .plain)
+        myTabelView.separatorStyle = .none
+        myTabelView.delegate = self
+        myTabelView.dataSource = self
+        self.view.addSubview(myTabelView)
         
         
         setRefreshView()
@@ -49,7 +49,7 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "resueIdentifier")
         if cell == nil {
-            cell = BaseTableViewCell.init(style: .default, reuseIdentifier: "resueIdentifier")
+            cell = UITableViewCell.init(style: .default, reuseIdentifier: "resueIdentifier")
         }
         return cell!
         
@@ -66,9 +66,9 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
         if scrollView.contentOffset.y < -64 {
             if scrollView.contentOffset.y + scrollView.frame.size.height < scrollView.contentSize.height{
                 refreshView.frame = CGRect.init(x: 0, y: 64, width: ScreenWidth, height: 40)
-                tabelView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);
+                myTabelView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);
             }else{
-                tabelView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+                myTabelView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             }
 
         }
