@@ -27,18 +27,21 @@ class HomeApi: NSObject {
    }
     func clickBtn()  {
     }
-    public func getHomeData(finished:@escaping (_ responseArray:[HomeModel],_ matchModel:MatchModel,_ success:String?)->()){
+    public func getHomeData(finished:@escaping (_ responseArray:[HomeModel],_ matchModel:MatchModel,_ scrollerImageModel:[HomeModel],_ success:String?)->()){
 
         Alamofire.request(manger.requestURLGenerateWithURL(path: manger.kURLStringFirstPage),method:.get).responseJSON { (response) in
             if response.result.isSuccess {
                 var newsModelArray = [HomeModel]();
+                var imageArray = [HomeModel]();
+
                 let dict = response.result.value as! NSDictionary
                 print(dict)
                 let leagueDict = dict["league"] as! NSDictionary//赛事
                 let news = dict["news"] as! NSDictionary//新闻
                 let newsList = news["list"] as! NSArray//新闻数组
-                
+                let rollerImgae = dict["rollimage"] as! NSArray
                 let matchModel = JSONDeserializer<MatchModel>.deserializeFrom(dict: leagueDict)
+                
                 for newsDict in newsList {
                     let newsModel = JSONDeserializer<HomeModel>.deserializeFrom(dict: newsDict as? NSDictionary)
                     if (newsModel != nil) {
@@ -46,10 +49,19 @@ class HomeApi: NSObject {
                     }
 
                 }
-                finished(newsModelArray,matchModel!,"成功")
+                
+                for imageDict in rollerImgae {
+                    let newsModel = JSONDeserializer<HomeModel>.deserializeFrom(dict: imageDict as? NSDictionary)
+                    if (newsModel != nil) {
+                        imageArray.append(newsModel!)
+                    }
+                    
+                }
+
+                finished(newsModelArray,matchModel!,imageArray,"成功")
                 
             }else {
-                finished([],MatchModel(),"失败")
+                finished([],MatchModel(),[],"失败")
             }
             
         

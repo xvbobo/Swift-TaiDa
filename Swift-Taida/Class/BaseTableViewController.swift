@@ -7,41 +7,55 @@
 //
 
 import UIKit
+import MJRefresh
 
 class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
     
-
     var dataSource  = [Any]()
     var down = false
     var hiddenRefresh = false
     var myTabelView = UITableView()
-    var refreshView = MyRefreshView()
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        refreshView.isHidden = hiddenRefresh
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        self.title = "首页"
         myTabelView = UITableView.init(frame: CGRect.init(x: 0, y:0, width: UIScreen_W, height: UIScreen_H), style: .plain)
         myTabelView.separatorStyle = .none
         myTabelView.delegate = self
         myTabelView.dataSource = self
         self.view.addSubview(myTabelView)
-        
-        
-        setRefreshView()
+        //普通带文字下拉刷新的定义
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(BaseTableViewController.headerRefresh))
+        self.myTabelView.mj_header = header
+        //普通带文字上拉加载的定义
+         let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(BaseTableViewController.footerRefresh))
+        footer?.setTitle("", for: .idle)
+        self.myTabelView.mj_footer = footer
         // Do any additional setup after loading the view.
     }
-    func setRefreshView() {
-        refreshView = MyRefreshView.init(frame: CGRect.init(x: 0, y: -40, width: ScreenWidth, height: 40))
-        refreshView.backgroundColor = UIColor.yellow
-        self.view.addSubview(refreshView)
+    
+    func headerRefresh() {
+        //子类需要重写
+        
     }
+    
+    func finishRefesh() {
+        
+        self.myTabelView.mj_header.endRefreshing()
+        self.myTabelView.mj_footer.endRefreshing()
+
+
+    }
+    
+    func footerRefresh()  {
+        //子类需要重写
+
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
@@ -54,39 +68,7 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
         return cell!
         
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if hiddenRefresh == true {
-            return
-        }
-        if scrollView.contentOffset.y > 0 {
-            down = true
-        }else{
-            down = false
-        }
-        if scrollView.contentOffset.y < -64 {
-            if scrollView.contentOffset.y + scrollView.frame.size.height < scrollView.contentSize.height{
-                refreshView.frame = CGRect.init(x: 0, y: 64, width: ScreenWidth, height: 40)
-                myTabelView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);
-            }else{
-                myTabelView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-            }
-
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if hiddenRefresh == true {
-            return
-        }
-        if down == true {
-            return
-        }
-        self.refreshView.frame = CGRect.init(x: 0, y: -40, width: ScreenWidth, height: 40)
-        scrollView.contentInset = UIEdgeInsetsMake(64, 0.0, 0.0, 0.0)
-        
-
-    }
-    override func didReceiveMemoryWarning() {
+       override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

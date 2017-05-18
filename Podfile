@@ -4,5 +4,6 @@ use_frameworks!
 target 'Swift-Taida' do
 pod 'AlamofireImage'
 pod 'Alamofire', '~> 4.0'
+pod 'MJRefresh'
 pod 'HandyJSON'
 end

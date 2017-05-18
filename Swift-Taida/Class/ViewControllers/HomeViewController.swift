@@ -12,6 +12,8 @@ class HomeViewController: BaseTableViewController {
 
     var scrollerView : MyCustomScrollerView?
     var heaerView = MatchHeaderView()
+    let newsApi = NewsListApi()
+    var pageNumber = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,11 +24,17 @@ class HomeViewController: BaseTableViewController {
     
     func getDataSource()  {
         let homeApi = HomeApi()
-       homeApi.getHomeData { (newsList, matchModel, error) in
+       homeApi.getHomeData { (newsList, matchModel,imageArray, error) in
         self.dataSource = newsList
         self.myTabelView.reloadData()
-        
-    }
+        var imageString = [String]()
+        for model:HomeModel in imageArray {
+            imageString.append(model.logo!)
+        }
+        self.scrollerView?.setUpUI(array: imageString)
+        self.finishRefesh()
+
+        }
     }
     
     func createUI() {
@@ -35,17 +43,20 @@ class HomeViewController: BaseTableViewController {
         if scrollerView == nil {
             
             scrollerView = MyCustomScrollerView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen_W, height: 150))
-            scrollerView?.setUpUI(array: [UIColor.red,UIColor.yellow,UIColor.green], titleArray: ["红色","黄色","绿色"])
+            
         }
         heaerView = MatchHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen_W, height: 150))
-        self.myTabelView.tableHeaderView = heaerView
+        self.myTabelView.tableHeaderView = scrollerView!
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 80
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataSource.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:BaseTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "cell") as? BaseTableViewCell
         
@@ -60,6 +71,23 @@ class HomeViewController: BaseTableViewController {
        
         return cell as UITableViewCell
     }
+    
+    override func headerRefresh() {
+        pageNumber = 1
+        self.dataSource.removeAll()
+        self.getDataSource()
+    }
+    
+    override func footerRefresh() {
+        newsApi.getNewsList(pageNumber: pageNumber, finished: {resposeArray,success in
+            self.dataSource = self.dataSource as![HomeModel] + resposeArray
+            self.myTabelView.reloadData()
+            self.finishRefesh()
+
+        })
+        pageNumber += 1
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

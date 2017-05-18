@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class MyCustomScrollerView: UIView,UIScrollViewDelegate{
 
@@ -15,7 +16,7 @@ class MyCustomScrollerView: UIView,UIScrollViewDelegate{
     var centerImageView = UIImageView()
     var rightImageView = UIImageView()
     var currentImageIndex = 0;
-    var imageArray = [AnyObject]()
+    var imageArray = [String]()
     var imageViews = [UIImageView]()
    
     
@@ -23,37 +24,27 @@ class MyCustomScrollerView: UIView,UIScrollViewDelegate{
     var timer = Timer()
     override init(frame:CGRect){
         super.init(frame:frame)
-        
-    }
-    func userInterFace() {
         myScrollerView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: frame.width, height: frame.height))
-
+        
         myScrollerView.contentOffset = CGPoint.init(x: myScrollerView.frame.width, y: 0)
-        myScrollerView.contentSize = CGSize.init(width: frame.width * 3, height: frame.height)
+        
         myScrollerView.isPagingEnabled = true
         myScrollerView.showsHorizontalScrollIndicator = false
         myScrollerView.delegate = self
         self.addSubview(myScrollerView)
-        for i in 0...3 {
+    }
+    func userInterFace() {
+        myScrollerView.contentSize = CGSize.init(width: frame.width * CGFloat(imageArray.count), height: frame.height)
+        for e in imageArray.enumerated() {
+            let i = e.offset
+    
             let imageView = UIImageView.init(frame: CGRect.init(x:CGFloat(i) * myScrollerView.frame.width, y: 0, width: myScrollerView.frame.width, height: myScrollerView.frame.height))
             let label = UILabel.init(frame: CGRect.init(x: 0, y: imageView.frame.height - 20, width: imageView.frame.width, height: 20))
             label.textColor = UIColor.white
             imageView.addSubview(label)
-            if i == 0 && imageArray.count > 1 {
-                imageView.backgroundColor = imageArray[imageArray.count - 1] as? UIColor //左边
-                label.text = titleArr[titleArr.count - 1]
-
-            }
-            if i == 1 && imageArray.count > 0 {
-                imageView.backgroundColor = imageArray[0] as? UIColor //左边
-                label.text = titleArr[0]
-
-            }
-            if i == 2 && imageArray.count > 1 {
-                imageView.backgroundColor = imageArray[1] as? UIColor//右边
-                label.text = titleArr[1]
-
-            }
+            
+            let urlImage = URL.init(string: imageArray[i])
+            imageView.af_setImage(withURL: urlImage!)
             imageViews.append(imageView)
             myScrollerView.addSubview(imageView)
         }
@@ -77,31 +68,36 @@ class MyCustomScrollerView: UIView,UIScrollViewDelegate{
         }
         //  重新设置左右图片
         let  centerImageView = imageViews[1]
-        let centerLable = centerImageView.subviews.first as? UILabel
+//        let centerLable = centerImageView.subviews.first as? UILabel
         let  leftImageView = imageViews[0]
-        let leftLable = leftImageView.subviews.first as? UILabel
+//        let leftLable = leftImageView.subviews.first as? UILabel
 
         let  rightImageView = imageViews[2]
-        let rightLabel = rightImageView.subviews.first as? UILabel
+//        let rightLabel = rightImageView.subviews.first as? UILabel
         
-        centerImageView.backgroundColor = imageArray[currentImageIndex] as? UIColor;
-        centerLable?.text = titleArr[currentImageIndex]
+        let centerImageUrl = URL.init(string: imageArray[currentImageIndex])
+        
+        centerImageView.af_setImage(withURL: centerImageUrl!)
+//        centerImageView.backgroundColor = imageArray[currentImageIndex] as? UIColor;
+//        centerLable?.text = titleArr[currentImageIndex]
         
         leftImageIndex  = (currentImageIndex + imageArray.count - 1) % imageArray.count ;
         rightImageIndex = (currentImageIndex + 1) % imageArray.count ;
         
-        leftImageView.backgroundColor  = imageArray[leftImageIndex] as? UIColor ;
-        leftLable?.text = titleArr[leftImageIndex]
+        let leftImageUrl = URL.init(string: imageArray[leftImageIndex])
+        leftImageView.af_setImage(withURL: leftImageUrl!)
+//        leftLable?.text = titleArr[leftImageIndex]
         
-        rightImageView.backgroundColor = imageArray[rightImageIndex] as? UIColor ;
-        rightLabel?.text = titleArr[rightImageIndex]
+        let rightImageUrl = URL.init(string: imageArray[rightImageIndex])
+        rightImageView.af_setImage(withURL: rightImageUrl!)
+//        rightImageView.backgroundColor = imageArray[rightImageIndex] as? UIColor ;
+//        rightLabel?.text = titleArr[rightImageIndex]
         
         scrollView .setContentOffset(CGPoint.init(x: scrollView.frame.width, y: 0), animated: false)
         
     }
-    func setUpUI(array imageArr:Array<AnyObject> ,titleArray titleOutArray:Array<String>) {
-        imageArray = imageArr
-        titleArr = titleOutArray
+    func setUpUI(array imageArr:[String]) {
+       imageArray = imageArr
         self.userInterFace()
 
     }
