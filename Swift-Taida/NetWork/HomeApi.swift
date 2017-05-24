@@ -33,9 +33,7 @@ class HomeApi: NSObject {
             if response.result.isSuccess {
                 var newsModelArray = [HomeModel]();
                 var imageArray = [HomeModel]();
-
                 let dict = response.result.value as! NSDictionary
-                print(dict)
                 let leagueDict = dict["league"] as! NSDictionary//赛事
                 let news = dict["news"] as! NSDictionary//新闻
                 let newsList = news["list"] as! NSArray//新闻数组

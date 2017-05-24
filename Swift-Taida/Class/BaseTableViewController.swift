@@ -15,6 +15,7 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
     var down = false
     var hiddenRefresh = false
     var myTabelView = UITableView()
+    var logoingLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +32,30 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
          let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(BaseTableViewController.footerRefresh))
         footer?.setTitle("", for: .idle)
         self.myTabelView.mj_footer = footer
+        
+        logoingLabel.frame = CGRect.init(x: 0, y: 0, width: 100, height: 30)
+        logoingLabel.backgroundColor = UIColor.black
+        logoingLabel.text = "正在加载..."
+        logoingLabel.textColor = .white
+        self.myTabelView.mj_header.isHidden = true
+        logoingLabel.center = self.myTabelView.center
+//        self.myTabelView.addSubview(logoingLabel)
         // Do any additional setup after loading the view.
     }
     
+    func cancelHeader() {
+        self.myTabelView.mj_header.isHidden = true
+    }
+    
     func headerRefresh() {
+//        self.logoingLabel.isHidden = false
+
         //子类需要重写
         
     }
     
     func finishRefesh() {
-        
+//        self.logoingLabel.isHidden = true
         self.myTabelView.mj_header.endRefreshing()
         self.myTabelView.mj_footer.endRefreshing()
 
@@ -50,6 +65,10 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
     func footerRefresh()  {
         //子类需要重写
 
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1;
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

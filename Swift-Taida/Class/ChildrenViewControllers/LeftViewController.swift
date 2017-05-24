@@ -46,11 +46,11 @@ class LeftViewController: UIViewController,UITextFieldDelegate{
     }
     func buttonAction(button:UIButton) {
         if button.tag - 100 == 0 {
-            let textFiled = self.view.viewWithTag(200) as? UITextField
+            _ = self.view.viewWithTag(200) as? UITextField
             coreData.addData()
         }else{
             coreData.search()
-            let textFiled = self.view.viewWithTag(201) as? UITextField
+            _ = self.view.viewWithTag(201) as? UITextField
         }
         print(button.titleLabel?.text ?? "错误")
     }

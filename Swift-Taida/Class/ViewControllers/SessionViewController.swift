@@ -8,88 +8,109 @@
 
 import UIKit
 
-class SessionViewController: BaseViewController,UIPageViewControllerDelegate,UIPageViewControllerDataSource {
+class SessionViewController: BaseTableViewController {
 
-    var pageController = UIPageViewController()
-    var viewControllers = [UIViewController]()
-    var buttons = [UIButton]()
-    let buttonW = ScreenWidth/3
-    let buttonTitle = ["左","中","右"]
+    var sessionHeader = SessionHeaderView()
+    var sessionApi = SessonListApi()
+    var topArray = [SessionTopTopicModel]()
+    var sessionListArray = [SessionTopicModel]()
+    let sessionListCell = SessionListCell()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "圈子"
-        createUI()
+        self.view.backgroundColor = UIColor.white
+        self.cancelHeader()
         
-
+        sessionHeader.createSessionHeaderView(frame: CGRect.init(x: 0, y: 0, width: ScreenWidth, height: 130))
         // Do any additional setup after loading the view.
     }
-    func createUI() {
-        pageController = UIPageViewController.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        pageController.view.backgroundColor = UIColor.blue
-        let item1 = UIBarButtonItem.init(title: "左", style: .done, target: self, action: #selector(item1Action1))
-        let item2 = UIBarButtonItem.init(title: "中", style: .done, target: self, action: #selector(item1Action2))
-        let item3 = UIBarButtonItem.init(title: "右", style: .done, target: self, action: #selector(item1Action3))
-        pageController .setToolbarItems([item1,item2,item3], animated: false)
-        
-        let leftVC = LeftViewController()
-        leftVC.view.tag = 100
-        let centeVC = CenterViewController()
-        centeVC.view.tag = 101
-        let rightVC = RightViewController()
-        rightVC.view.tag = 102
-        viewControllers.append(contentsOf: [leftVC,centeVC,rightVC])
-        
-        
-        for i in 0..<3 {
-            let button = UIButton.init(type: .custom)
-            button.frame = CGRect.init(x: CGFloat(i) * buttonW, y: 64, width: buttonW, height: 30)
-            button.tag = 200 + i
-            button.layer.borderWidth = 1
-            button.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
-            button.layer.borderColor = UIColor.gray.cgColor
-            button.setTitle(buttonTitle[i], for: .normal)
-            button.setTitleColor(UIColor.black, for: .normal)
-            button.backgroundColor = UIColor.white
-            buttons.append(button)
-            self.view.addSubview(button)
-        }
-        pageController.view.frame = CGRect.init(x: 0, y: 94, width: ScreenWidth, height: ScreenHeight - 94 - 50)
-        pageController .setViewControllers([viewControllers[1]], direction: .forward, animated: false, completion: nil)
-        pageController.delegate = self
-        pageController.dataSource = self
-        pageController.view.isUserInteractionEnabled = false
-        self.view.addSubview(pageController.view)
-        self.addChildViewController(pageController)
-        self.leftButton(imageString: "侧边栏")
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if viewController.view.tag == 100 {
-            return nil
-        }
-       let viewController = viewControllers[0]
-        return viewController
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if viewController.view.tag == 102 {
-            return nil
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        sessionApi.getSessionList(pageNumber: 1, finished: { topArray,topicsArray,success in
+            if Int(success!)! == 1 {
+                
+                self.topArray = topArray
+                self.sessionListArray = topicsArray
+                self.myTabelView.reloadData()
+//                print(self.sessionListArray)
+//                print(self.topArray)
 
-       let  viewController = viewControllers[2]
-        return viewController
-    }
-    func buttonAction(button : UIButton) {
-        print(button.tag)
-        pageController .setViewControllers([viewControllers[button.tag - 200]], direction: .forward, animated: false, completion: nil)
-    }
-    func item1Action1()  {
+            }
+            
+        })
         
     }
-    func item1Action2()  {
-        
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.sessionListArray.count > 0 && self.topArray.count > 0 {
+            if indexPath.row == 0 {
+                return 130
+            }else if indexPath.row < self.topArray.count + 1 && indexPath.row > 0{
+                return 30
+            }else if indexPath.row > self.topArray.count {
+                let seeionListModle = self.sessionListArray[indexPath.row - self.topArray.count - 1]
+                let height = sessionListCell.getSessionListCellHeight(model: seeionListModle)
+                return height + 80
+            }else {
+                return 0
+            }
+
+        } else {
+            return 0
+        }
     }
-    func item1Action3()  {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.sessionListArray.count > 0 {
+            return self.sessionListArray.count + self.topArray.count + 1
+        }else{
+            return 0
+ 
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        if indexPath.row == 0 {
+            var cell0:SessionHeaderView! = tableView.dequeueReusableCell(withIdentifier: "headerCell") as? SessionHeaderView
+            if cell0 == nil {
+                cell0 = SessionHeaderView.init(style: .default, reuseIdentifier: "headerCell")
+            }
+            return cell0
+
+        }else if indexPath.row < self.topArray.count + 1 && indexPath.row > 0 {
+            
+            var cell1:SessionTopCell! = tableView.dequeueReusableCell(withIdentifier: "topCell") as? SessionTopCell
+            if cell1 == nil {
+                cell1 = SessionTopCell.init(style: .default, reuseIdentifier: "topCell")
+            }
+            if self.topArray.count > 0 {
+                if indexPath.row - 1 < self.topArray.count || indexPath.row - 1 == self.topArray.count {
+                    cell1.updateSessionTopCell(model: self.topArray[indexPath.row - 1] )
+                    
+                }
+            }
+           
+            return cell1
+            
+        }else{
+            
+            let  cellIdentifier = "listCell"
+            
+            var cell2:SessionListCell! = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? SessionListCell
+            if cell2 == nil {
+                cell2 = SessionListCell.init(style: .default, reuseIdentifier: cellIdentifier)
+            }
+
+            if self.sessionListArray.count > 0 {
+                if indexPath.row - self.topArray.count - 1 < self.sessionListArray.count || indexPath.row - self.topArray.count - 1 == self.sessionListArray.count {
+                    cell2.updateSessionLiseCell(model: self.sessionListArray[indexPath.row - self.topArray.count - 1])
+                }
+            }
+            return cell2
+
+        }
+        
         
     }
     override func didReceiveMemoryWarning() {
