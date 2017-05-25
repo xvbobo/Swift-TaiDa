@@ -28,6 +28,7 @@ class CustomerImagesView: UIView {
         imageViews.removeAll()
         for (_,value) in imagesUrl.enumerated() {
             let imageView = UIImageView()
+            imageView.backgroundColor = UIColor.gray
             let urlString = NSURL.init(string: value)
             imageView.af_setImage(withURL: urlString! as URL)
             imageViews.append(imageView)

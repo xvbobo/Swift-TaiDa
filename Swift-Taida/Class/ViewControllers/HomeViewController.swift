@@ -17,7 +17,8 @@ class HomeViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getDataSource()
+        self.headerRefresh()
+//        getDataSource()
         createUI()
         // Do any additional setup after loading the view.
     }
@@ -73,12 +74,14 @@ class HomeViewController: BaseTableViewController {
     }
     
     override func headerRefresh() {
+        super.headerRefresh()
         pageNumber = 1
         self.dataSource.removeAll()
         self.getDataSource()
     }
     
     override func footerRefresh() {
+        super.footerRefresh()
         newsApi.getNewsList(pageNumber: pageNumber, finished: {resposeArray,success in
             self.dataSource = self.dataSource as![HomeModel] + resposeArray
             self.myTabelView.reloadData()

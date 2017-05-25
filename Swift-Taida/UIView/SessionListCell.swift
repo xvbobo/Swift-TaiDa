@@ -99,7 +99,6 @@ class SessionListCell: UITableViewCell {
 
         }else{
             imagesView.isHidden = true
-//             imagesView.frame = CGRect.init(x: 10, y: contentLable.frame.maxY + 5, width: ScreenWidth - 20, height: 0)
         }
 
     }

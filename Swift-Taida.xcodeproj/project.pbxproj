@@ -33,6 +33,7 @@
 		9A4CF5801EB04AF300ECBDFE /* MatchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF57F1EB04AF300ECBDFE /* MatchHeaderView.swift */; };
 		9A86649E1EA8A4D800D618BB /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A86649D1EA8A4D800D618BB /* BaseTableViewController.swift */; };
 		9A8664A01EA8B89100D618BB /* MyRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A86649F1EA8B89100D618BB /* MyRefreshView.swift */; };
+		9A8975701ED681CB00F6E2A3 /* CustomerLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89756F1ED681CB00F6E2A3 /* CustomerLoadingView.swift */; };
 		9AAC36F51E9770BF00867F2A /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC36F41E9770BF00867F2A /* LeftViewController.swift */; };
 		9AAC36F71E9770CD00867F2A /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC36F61E9770CD00867F2A /* CenterViewController.swift */; };
 		9AAC36F91E9770D800867F2A /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC36F81E9770D800867F2A /* RightViewController.swift */; };
@@ -79,6 +80,7 @@
 		9A4CF57F1EB04AF300ECBDFE /* MatchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchHeaderView.swift; sourceTree = "<group>"; };
 		9A86649D1EA8A4D800D618BB /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		9A86649F1EA8B89100D618BB /* MyRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRefreshView.swift; sourceTree = "<group>"; };
+		9A89756F1ED681CB00F6E2A3 /* CustomerLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerLoadingView.swift; sourceTree = "<group>"; };
 		9AAC36F41E9770BF00867F2A /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		9AAC36F61E9770CD00867F2A /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		9AAC36F81E9770D800867F2A /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		9A3A0C091EC0564600A5B385 /* CustomerTools */ = {
 			isa = PBXGroup;
 			children = (
+				9A89756F1ED681CB00F6E2A3 /* CustomerLoadingView.swift */,
 			);
 			name = CustomerTools;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				9A1F5F401ECD41980004C48C /* NewsListApi.swift in Sources */,
 				9A2091931ED4185300869469 /* SessionTopicModel.swift in Sources */,
 				9ACF02051EC1A9F800E5149C /* MyView.m in Sources */,
+				9A8975701ED681CB00F6E2A3 /* CustomerLoadingView.swift in Sources */,
 				9AB7854F1E1100B000623CDA /* BaseViewController.swift in Sources */,
 				9A17243C1E1264D000B3766E /* MyNavViewController.swift in Sources */,
 				9A1724421E12790700B3766E /* HomeModel.swift in Sources */,

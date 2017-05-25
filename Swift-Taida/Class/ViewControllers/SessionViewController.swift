@@ -20,27 +20,52 @@ class SessionViewController: BaseTableViewController {
         super.viewDidLoad()
         self.title = "圈子"
         self.view.backgroundColor = UIColor.white
-        self.cancelHeader()
-        
+//        self.cancelHeader()
+//        self.cancelFooter()
         sessionHeader.createSessionHeaderView(frame: CGRect.init(x: 0, y: 0, width: ScreenWidth, height: 130))
         // Do any additional setup after loading the view.
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    func getDataSource() {
         sessionApi.getSessionList(pageNumber: 1, finished: { topArray,topicsArray,success in
             if Int(success!)! == 1 {
                 
                 self.topArray = topArray
                 self.sessionListArray = topicsArray
                 self.myTabelView.reloadData()
-//                print(self.sessionListArray)
-//                print(self.topArray)
-
+                self.finishRefesh()
             }
             
         })
-        
+
     }
+    
+    func getMoreDataSource() {
+        let sessionModel = self.sessionListArray.last
+        sessionApi.getMoreSessionList(model: sessionModel!, finished: {
+            sessionList,success in
+            if success == "success" {
+                self.sessionListArray = self.sessionListArray + sessionList
+                self.myTabelView.reloadData()
+                self.finishRefesh()
+            }
+        })
+    }
+    
+    override func headerRefresh() {
+         super.headerRefresh()
+        self.getDataSource()
+    }
+    
+    override func footerRefresh() {
+        super.footerRefresh()
+        self.getMoreDataSource()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.headerRefresh()
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.sessionListArray.count > 0 && self.topArray.count > 0 {
             if indexPath.row == 0 {

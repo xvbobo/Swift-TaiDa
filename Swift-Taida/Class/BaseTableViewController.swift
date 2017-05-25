@@ -15,7 +15,7 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
     var down = false
     var hiddenRefresh = false
     var myTabelView = UITableView()
-    var logoingLabel = UILabel()
+    var customerLogin : CustomerLoadingView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,37 +32,50 @@ class BaseTableViewController: BaseViewController,UITableViewDataSource,UITableV
          let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(BaseTableViewController.footerRefresh))
         footer?.setTitle("", for: .idle)
         self.myTabelView.mj_footer = footer
-        
-        logoingLabel.frame = CGRect.init(x: 0, y: 0, width: 100, height: 30)
-        logoingLabel.backgroundColor = UIColor.black
-        logoingLabel.text = "正在加载..."
-        logoingLabel.textColor = .white
-        self.myTabelView.mj_header.isHidden = true
-        logoingLabel.center = self.myTabelView.center
-//        self.myTabelView.addSubview(logoingLabel)
+        customerLogin = CustomerLoadingView.init(frame: CGRect.init(x: (ScreenWidth - 100)/2, y: (ScreenHeight - 100)/2, width: 100, height: 100))
+        let window = UIApplication.shared.windows.last!
+        customerLogin?.isHidden = true
+        window.addSubview(customerLogin!)
         // Do any additional setup after loading the view.
     }
     
+    //取消刷新
     func cancelHeader() {
+
         self.myTabelView.mj_header.isHidden = true
     }
     
+    //取消加载
+    func cancelFooter() {
+        
+        self.myTabelView.mj_footer.isHidden = true
+    }
+
     func headerRefresh() {
-//        self.logoingLabel.isHidden = false
+        customerLogin?.isHidden = false
+        customerLogin?.paly()
+        self.myTabelView.isUserInteractionEnabled = false
 
         //子类需要重写
         
     }
     
     func finishRefesh() {
-//        self.logoingLabel.isHidden = true
+        customerLogin?.stopPlay()
+        customerLogin?.isHidden = true
         self.myTabelView.mj_header.endRefreshing()
         self.myTabelView.mj_footer.endRefreshing()
+        self.myTabelView.isUserInteractionEnabled = true
+
 
 
     }
     
     func footerRefresh()  {
+        customerLogin?.paly()
+        customerLogin?.isHidden = false
+        self.myTabelView.isUserInteractionEnabled = false
+
         //子类需要重写
 
     }
