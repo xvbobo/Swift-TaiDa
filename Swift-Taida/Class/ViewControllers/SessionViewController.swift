@@ -20,8 +20,7 @@ class SessionViewController: BaseTableViewController {
         super.viewDidLoad()
         self.title = "圈子"
         self.view.backgroundColor = UIColor.white
-//        self.cancelHeader()
-//        self.cancelFooter()
+        self.headerRefresh()
         sessionHeader.createSessionHeaderView(frame: CGRect.init(x: 0, y: 0, width: ScreenWidth, height: 130))
         // Do any additional setup after loading the view.
     }
@@ -61,10 +60,7 @@ class SessionViewController: BaseTableViewController {
         super.footerRefresh()
         self.getMoreDataSource()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.headerRefresh()
-    }
+   
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.sessionListArray.count > 0 && self.topArray.count > 0 {
@@ -138,6 +134,17 @@ class SessionViewController: BaseTableViewController {
         
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row > self.topArray.count {
+            let detailViewController = SessionDetaillViewController()
+            detailViewController.hidesBottomBarWhenPushed = true
+            detailViewController.topModel = self.sessionListArray[indexPath.row - self.topArray.count - 1]
+            self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
+       
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

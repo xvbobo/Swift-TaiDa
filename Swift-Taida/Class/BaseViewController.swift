@@ -18,7 +18,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        self.view.backgroundColor = .white
         let leftSwip = UIPanGestureRecognizer.init(target: self, action: #selector(leftSwip(leftSwip:)))
         
         self.view.addGestureRecognizer(leftSwip)
@@ -40,7 +40,6 @@ class BaseViewController: UIViewController {
             self.tabBarController?.view.frame = CGRect.init(x: x, y: 0, width: ScreenWidth, height: ScreenHeight)
             
         }
-        print(x)
     }
     //需要在子类中调用才能实现
     func leftButton(imageString:String)  {
@@ -62,10 +61,20 @@ class BaseViewController: UIViewController {
         }
     }
 
+    func pushToViewController(viewController:UIViewController)  {
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func presentToViewController(viewController:UIViewController)  {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 
     /*

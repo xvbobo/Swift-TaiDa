@@ -1,33 +1,24 @@
 //
-//  InfoMationViewController.swift
+//  SessionDetaillViewController.swift
 //  Swift-Taida
 //
-//  Created by 许菠菠 on 2017/4/4.
+//  Created by 许菠菠 on 2017/5/25.
 //  Copyright © 2017年 许菠菠. All rights reserved.
 //
 
 import UIKit
 
-class InfoMationViewController: BaseViewController , LoginViewDelegate {
+class SessionDetaillViewController: BaseTableViewController {
 
-    var homeApi = HomeApi()
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
+    var topModel:SessionTopicModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "我的"
-        let loginView = LoginView.init(frame: CGRect.init(x: 0, y: 64, width: ScreenWidth, height: 200))
-        loginView.mydelegate = self
-        self.view.addSubview(loginView)
-        
+        self.title = "圈子详情"
+        print(topModel?.content ?? "")
         // Do any additional setup after loading the view.
     }
- 
-    func headerViewClick() {
-        let nav = UINavigationController.init(rootViewController: LoginViewController())
-        self.present(nav, animated: true, completion: nil)
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

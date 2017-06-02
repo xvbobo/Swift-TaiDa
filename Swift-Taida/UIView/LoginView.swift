@@ -8,13 +8,21 @@
 
 import UIKit
 
+protocol LoginViewDelegate : NSObjectProtocol {
+    func headerViewClick()
+}
+
 class LoginView: UIView {
 
+    //delegate
+    weak var mydelegate : LoginViewDelegate?
+    
     override init(frame:CGRect){
         super.init(frame: frame)
         self.backgroundColor = UIColor.gray
         self.setUpUI()
     }
+    
     func setUpUI() {
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.tapAction))
         let headerIView = UIImageView.init(frame: CGRect.init(x: (frame.width - 80)/2, y: 30, width: 80, height: 80))
@@ -42,6 +50,7 @@ class LoginView: UIView {
         
     }
     func tapAction()  {
+        mydelegate?.headerViewClick()
         print("click header")
     }
     required init?(coder aDecoder: NSCoder) {
